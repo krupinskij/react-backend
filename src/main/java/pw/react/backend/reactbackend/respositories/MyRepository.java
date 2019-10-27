@@ -20,6 +20,10 @@ public abstract class MyRepository implements SystemRepository {
     public void save(MyEntity user) {
     }
 
+    public void delete(MyEntity user) {
+
+    }
+
     @Override
     public <S extends System> Iterable<S> saveAll(Iterable<S> iterable) {
         return null;

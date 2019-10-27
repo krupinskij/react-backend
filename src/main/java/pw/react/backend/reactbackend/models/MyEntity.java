@@ -75,7 +75,7 @@ public class MyEntity {
         return birthDate;
     }
 
-    public void setDateOfBirth(Date _birthDate) {
+    public void setBirthDate(Date _birthDate) {
         birthDate = _birthDate;
     }
 
