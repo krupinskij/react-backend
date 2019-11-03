@@ -34,18 +34,18 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/{userLogin}")
-    public ResponseEntity<User> getUserById(@PathVariable String userLogin) throws ResourceNotFoundException {
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable Long userId) throws ResourceNotFoundException {
 
-        User user = userRepository.findByLogin(userLogin).orElseThrow( () ->
-            new ResourceNotFoundException(String.format("User with id [%s] not found.", userLogin))
+        User user = userRepository.findById(userId).orElseThrow( () ->
+            new ResourceNotFoundException(String.format("User with id [%s] not found.", userId))
         );
 
         return ResponseEntity.ok().body(user);
     }
 
     @PutMapping(path = "")
-    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody @Valid User newUser) throws ResourceNotFoundException {
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid User newUser) throws ResourceNotFoundException {
 
         User oldUser = userRepository.findById(userId).orElseThrow( () ->
                 new ResourceNotFoundException(String.format("User with id [%s] not found.", userId))
@@ -55,17 +55,17 @@ public class UserController {
         oldUser.setFirstName(newUser.getFirstName());
         oldUser.setLastName(newUser.getLastName());
         oldUser.setBirthDate(newUser.getBirthDate());
-        oldUser.setActive(String.valueOf(newUser.getActive()));
+        oldUser.setActive(newUser.getActive());
 
         final User updatedUser = userRepository.save(oldUser);
 
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping(path = "/{userLogin}")
-    public Map<String, Boolean> deleteUser(@PathVariable String userLogin)  throws ResourceNotFoundException{
-        User user = userRepository.findByLogin(userLogin).orElseThrow( () ->
-                new ResourceNotFoundException(String.format("User with id [%s] not found.", userLogin))
+    @DeleteMapping(path = "/{userId}")
+    public Map<String, Boolean> deleteUser(@PathVariable Long userId)  throws ResourceNotFoundException{
+        User user = userRepository.findById(userId).orElseThrow( () ->
+                new ResourceNotFoundException(String.format("User with id [%s] not found.", userId))
         );
 
         userRepository.delete(user);
