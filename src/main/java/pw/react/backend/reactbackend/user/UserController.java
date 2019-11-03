@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pw.react.backend.reactbackend.exception.ResourceNotFoundException;
+import pw.react.backend.reactbackend.exception.UserAlreadyExistsException;
 import pw.react.backend.reactbackend.user.service.UserService;
 
 import javax.validation.Valid;
@@ -26,6 +27,10 @@ public class UserController {
 
     @PostMapping(path = "")
     public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
+        if(userService.userExists(user)) {
+            throw new UserAlreadyExistsException(String.format("User with id [%s] already exists.", user.getId()));
+        }
+
         return ResponseEntity.ok().body(userRepository.save(user));
     }
 
