@@ -2,7 +2,6 @@ package pw.react.backend.reactbackend.user;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import pw.react.backend.reactbackend.utils.JsonDateDeserializer;
 import pw.react.backend.reactbackend.utils.JsonDateSerializer;
 
